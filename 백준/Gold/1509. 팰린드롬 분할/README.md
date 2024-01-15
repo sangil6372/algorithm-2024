@@ -38,7 +38,7 @@
                         isPalindrome[start][end] = true;
                     }
                 }
-            }            
+    }            
 
     for (int i = 1; i <= len; i++) {
                 dp[i] = Integer.MAX_VALUE; // 일단 초기값 (최소값으로 갱신)
@@ -47,4 +47,4 @@
                         dp[i] = Math.min(dp[i], dp[j] + 1);
                     }
                 }
-            }
+    }
