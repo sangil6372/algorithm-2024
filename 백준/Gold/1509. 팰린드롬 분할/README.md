@@ -32,6 +32,7 @@
  1. 팰린드롬 체크 함수를 만들었었는데 메모리 초과가 발생하였다. 체크 함수를 만드는 과정에서도 DP를 적용하면 코드가 간결해진다.
  2. 메모이제이션에서 i와 j의 위치가 헷갈린다. DP에서 일반적인 루틴이니 숙지하도록 하자.
 
+## 코드
     for (int end = 0; end < len; end++) {
                 for (int start = 0; start <= end; start++) {
                     if (str.charAt(start) == str.charAt(end) && (end - start < 2 || isPalindrome[start + 1][end - 1])) {
