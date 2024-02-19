@@ -127,3 +127,26 @@
 
  <p>최대 5번 이동시켜서 얻을 수 있는 가장 큰 블록을 출력한다.</p>
 
+### 얻은 것
+ <p>
+	 배열을 갱신할 때 새로운 배열을 취급하듯이 index와 block을 이용해서 갱신하는 점
+ </p>
+     for (int i = 0; i < n; i++) { // 각 세로줄 위로 올림
+				int block = 0; // 임시 블럭
+				int index = 0; // 임시 인덱스 위에 해당하는 인덱스 index 0부터 갱신해야함
+				for (int j = 0; j < n; j++) {
+					if (map[j][i] == 0)
+						continue;
+					if (block == map[j][i]) // 위에 블럭과 현재 블록이 같으면? 위에 인덱스에 해당하는 블럭 갱신
+					{
+						map[index - 1][i] = block * 2;
+						block = 0; // 블럭 초기화
+						map[j][i] = 0;
+					} else {
+						block = map[j][i];
+						map[j][i] = 0;
+						map[index][i] = block;
+						index++;
+					}
+				}
+			}
