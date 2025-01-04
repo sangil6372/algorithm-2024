@@ -1,20 +1,17 @@
+import java.util.*;
 
 class Solution {
     public int solution(int[][] sizes) {
         int answer = 0;
         
-        // 그냥 긴 걸 세로로 할까?
-        int height = 0;
-        int width = 0;
+        PriorityQueue<Integer> width = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> height = new PriorityQueue<>(Collections.reverseOrder());
         
-        for (int[] wallet : sizes ){
-            int h = Math.max(wallet[0],wallet[1]);
-            int w = Math.min(wallet[0],wallet[1]);
-                
-            height = Math.max(h, height);
-            width = Math.max(w, width);
+        for (int[] size : sizes){
+            width.add(Math.min(size[0],size[1]));
+            height.add(Math.max(size[0],size[1]));
         }
-        answer = height*width;
+        answer = width.poll()*height.poll();
         
         return answer;
     }
