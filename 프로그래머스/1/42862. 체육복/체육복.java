@@ -1,33 +1,43 @@
 import java.util.*;
 
-class Solution {
-    public int solution(int n, int[] lost, int[] reserve) {
 
-        Set<Integer> lostSet = new HashSet<>();
-        Set<Integer> reserveSet = new HashSet<>();
+class Solution {
+    
+    public int solution(int n, int[] lost, int[] reserve) {
+        int answer = n;
+        
+        HashSet<Integer> lostSet = new HashSet<>();
+        HashSet<Integer> reserveSet = new HashSet<>();
         
         for (int l : lost){
             lostSet.add(l);
         }
-        for (int re : reserve){
-            if (lostSet.contains(re)){
-                lostSet.remove(re); // 카운팅 하기보다 그냥 잃어버린 세트에서 제거만 하면 됨
-            }else{
-                reserveSet.add(re);
+        for (int r : reserve){
+            if(lostSet.contains(r)){
+                lostSet.remove(r);
+                continue;
             }
+            reserveSet.add(r);
         }
+        
        
-        int cnt = 0; 
+        int pCnt = 0;
+        
         for (int l : lostSet){
             if (reserveSet.contains(l-1)){
                 reserveSet.remove(l-1);
-                cnt++;
-                }else if (reserveSet.contains(l+1)){
+                pCnt++;
+            }else if (reserveSet.contains(l+1)){
                 reserveSet.remove(l+1);
-                cnt++;
-            }        
+                pCnt++;
+            }
         }
-    
-        return n-lostSet.size()+cnt;
+        
+        return answer-lostSet.size()+pCnt;
     }
+    
+        
+        
+    
+    
 }
