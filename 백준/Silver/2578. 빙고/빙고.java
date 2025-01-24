@@ -25,68 +25,62 @@ public class Main {
 				step++;
 				int nextNum = Integer.parseInt(st.nextToken());
 
-				int x = 0;
-				int y = 0;
 				for (int k = 0; k < 5; k++) {
 					for (int k2 = 0; k2 < 5; k2++) {
 						if (board[k][k2] == nextNum) {
-							x = k;
-							y = k2;
-							break;
+							board[k][k2] = 0;
+							if (countBingo(board) >= 3) {
+								System.out.println(step);
+								return;
+							}
 						}
 					}
 				}
-
-				board[x][y] = 0;
-				int bingoCnt = 0;
-
-				int cnt = 0;
-				for (int k = 0; k < 5; k++) {
-					if (board[k][k] == 0)
-						cnt++;
-				}
-				if (cnt == 5)
-					bingoCnt++;
-
-				cnt = 0;
-				for (int k = 0; k < 5; k++) {
-					if (board[k][4 - k] == 0)
-						cnt++;
-				}
-				if (cnt == 5)
-					bingoCnt++;
-
-				for (int k = 0; k < 5; k++) {
-					cnt = 0;
-					for (int k2 = 0; k2 < 5; k2++) {
-						if (board[k][k2] == 0)
-							cnt++;
-					}
-					if (cnt == 5)
-						bingoCnt++;
-				}
-				
-				cnt = 0;
-				for (int k = 0; k < 5; k++) {
-					cnt = 0;
-					for (int k2 = 0; k2 < 5; k2++) {
-						if (board[k2][k] == 0)
-							cnt++;
-					}
-					if (cnt == 5)
-						bingoCnt++;
-				}
-				
-				if (bingoCnt >= 3) {
-					System.out.println(step);
-					return;
-				}
-
 			}
 		}
-
-		// 빙고 조건
-		// 대각선 or 세로 or 가로
-
 	}
+
+	public static int countBingo(int[][] board) {
+		int bingoCnt = 0;
+
+		// 좌상우하 대각선 체크
+		int cnt = 0;
+		for (int k = 0; k < 5; k++) {
+			if (board[k][k] == 0)
+				cnt++;
+		}
+		if (cnt == 5)
+			bingoCnt++;
+		// 우상좌하 대각선 체크
+		cnt = 0;
+		for (int k = 0; k < 5; k++) {
+			if (board[k][4 - k] == 0)
+				cnt++;
+		}
+		if (cnt == 5)
+			bingoCnt++;
+		// 가로 줄 체크
+		for (int k = 0; k < 5; k++) {
+			cnt = 0;
+			for (int k2 = 0; k2 < 5; k2++) {
+				if (board[k][k2] == 0)
+					cnt++;
+			}
+			if (cnt == 5)
+				bingoCnt++;
+		}
+		// 세로 줄 체크
+		for (int k = 0; k < 5; k++) {
+			cnt = 0;
+			for (int k2 = 0; k2 < 5; k2++) {
+				if (board[k2][k] == 0)
+					cnt++;
+			}
+			if (cnt == 5)
+				bingoCnt++;
+		}
+		// 모든 케이스 마다 빙고 카운트를 가져옴 <- 메소드로 구현했다면 return 값
+		return bingoCnt;
+	}
+
 }
