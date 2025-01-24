@@ -4,40 +4,55 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 
-    public static void main(String[] args) throws IOException {
-    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    	StringTokenizer st = new StringTokenizer(br.readLine());
-    	
-    	int N = Integer.parseInt(st.nextToken());
-    	int L = Integer.parseInt(st.nextToken());
-    	
-    	
-    	int time = 0;
-    	int curPosition = 0;
-    	
-    	
-    	for (int i = 0; i < N; i++) {
+		int lightNum = Integer.parseInt(st.nextToken());
+		int roadLength = Integer.parseInt(st.nextToken());
+		int[][] road = new int[roadLength+1][2];
+		
+		int times = 0;
+		
+		// 현재 정보 
+		int curLocation = 0;
+		// 신호등 정보? -> 도로 정보?
+		
+		// 도로 상황 정보 		
+		for (int i = 0; i < lightNum; i++) {
 			st = new StringTokenizer(br.readLine());
+			int lightLocation = Integer.parseInt(st.nextToken());
+			int redLength = Integer.parseInt(st.nextToken());
+			int greenLength = Integer.parseInt(st.nextToken());
 			
-			int D = Integer.parseInt(st.nextToken());
-			int R = Integer.parseInt(st.nextToken());
-			int G = Integer.parseInt(st.nextToken());
-    		
-			
-			time += (D-curPosition);
-			curPosition = D;
-			
-			int signalTime = time % (R+G);
-			if (signalTime < R) {
-				time += (R-signalTime);
+			road[lightLocation][0] = redLength;
+			road[lightLocation][1] = greenLength;
+		}
+		
+		// 신호등 정보는 어디에 저장해?
+		while(curLocation<roadLength){
+			times++;
+			if (road[curLocation][0]!=0) {
+				// 해당 신호등 상황 
+				if(times%(road[curLocation][0]+road[curLocation][1])>=road[curLocation][0]) {
+					// 초록 불이니깐 건너기 
+					curLocation++;
+				}
+				else {
+					continue;
+				}
+			}else {
+				curLocation++;
 			}
 		}
-    	
-    	time += (L-curPosition);
-    	System.out.println(time);
-    	
-    	
-    	
-    }   
+		times++;
+		System.out.println(times);
+		
+		
+		
+		
+		
+
+	}
+
 }
