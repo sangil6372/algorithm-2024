@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
@@ -26,9 +25,10 @@ public class Main {
 			return; 
 		}
 		int minNum = Integer.MAX_VALUE;
-		for (Entry<Integer,Integer> entry : map.entrySet()) {
-			minNum = Math.min(minNum,entry.getKey()+entry.getValue());
+		for(int k : map.keySet()) {
+			minNum = Math.min(minNum,k+map.get(k));
 		}
+		
 		System.out.println(minNum);
 	}
 
